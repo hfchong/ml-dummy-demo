@@ -1,0 +1,4 @@
+gcsfs
+pandas
+sklearn
+bedrock-cli
