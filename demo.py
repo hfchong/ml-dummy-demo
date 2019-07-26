@@ -3,6 +3,7 @@ import itertools
 import logging
 import os
 
+from environs import Env
 import joblib
 import pandas as pd
 from sklearn.metrics import roc_auc_score, average_precision_score
@@ -18,10 +19,12 @@ LABELS_PATH = os.path.join(os.getenv("STORAGE_PATH"),
                            os.getenv("LABELS_FILE"))
 OUTPUT_MODEL_PATH = os.path.join('/artefact',
                                  os.getenv('OUTPUT_MODEL_NAME'))
+
+env = Env()
 PARAMS_SPACE = {
-    'n_estimators': [2, 5, 10],
-    'max_depth': [4, 8, 12],
-    'min_samples_split': [2, 4]
+    'n_estimators': env.list("N_ESTIMATORS_LIST", subcast=int),
+    'max_depth': env.list("MAX_DEPTH_LIST", subcast=int),
+    'min_samples_split': env.list("MIN_SAMPLES_SPLIT_LIST", subcast=int)
 }
 
 

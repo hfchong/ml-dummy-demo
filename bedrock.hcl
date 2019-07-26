@@ -10,6 +10,9 @@ train {
         FEATURES_FILE = "features.csv"
         LABELS_FILE = "labels.csv"
         OUTPUT_MODEL_NAME = "custom_model.pkl"
+        N_ESTIMATORS_LIST = "2, 5, 10"
+        MAX_DEPTH_LIST = "4, 8, 12"
+        MIN_SAMPLES_SPLIT_LIST = "2, 4"
     }
 }
 

@@ -1,4 +1,5 @@
+bedrock-cli
+environs
 gcsfs
 pandas
 sklearn
-bedrock-cli
