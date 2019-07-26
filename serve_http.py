@@ -12,12 +12,13 @@ import numpy as np
 
 from custom_pkg.modelling import CustomRF
 
-OUTPUT_MODEL_NAME = "custom_model.pkl"
 SERVER_PORT = int(os.environ.get("SERVER_PORT", "8080"))
+MODEL = joblib.load('custom_model.pkl')
+FEATURE_NAMES = ['age', 'gender', 'x', 'z', 'y', 'c', 'b', 'a']
 
 
 def predict_prob(features,
-                 model=joblib.load(OUTPUT_MODEL_NAME)):
+                 model=MODEL):
     """Predict probability given features.
 
     Args:
@@ -27,21 +28,12 @@ def predict_prob(features,
     Returns:
         prob (float): probability
     """
-    row_feats = [features['age'],
-                 features['gender'],
-                 features['x'],
-                 features['z'],
-                 features['y'],
-                 features['c'],
-                 features['b'],
-                 features['a']]
+    row_feats = np.asarray(
+        [[features[feature_name] for feature_name in FEATURE_NAMES]]
+    )
 
     # Score
-    prob = (
-        model
-        .predict_proba(np.array(row_feats).reshape(1, -1))[:, 1]
-        .item()
-    )
+    prob = model.predict_proba(row_feats)[:, 1].item()
 
     return prob
 
